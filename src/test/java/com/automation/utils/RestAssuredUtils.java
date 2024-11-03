@@ -27,6 +27,12 @@ public class RestAssuredUtils {
         response.then().log().all();
     }
 
+    public static void get(){
+        requestSpecification.when().log().all();
+        response=requestSpecification.get(endpoint);
+        response.then().log().all();
+    }
+
     public static int getStatusCode(){
         return response.getStatusCode();
     }

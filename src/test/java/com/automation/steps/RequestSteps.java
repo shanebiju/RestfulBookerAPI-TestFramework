@@ -36,4 +36,13 @@ public class RequestSteps {
     public void user_sends_a_post_request() {
         RestAssuredUtils.post();
     }
+
+    @Given("user wants to get booking with id {string}")
+    public void user_wants_to_get_booking_with_id(String string) {
+
+    }
+    @When("user sends a get request")
+    public void user_sends_a_get_request() {
+        RestAssuredUtils.get();
+    }
 }
