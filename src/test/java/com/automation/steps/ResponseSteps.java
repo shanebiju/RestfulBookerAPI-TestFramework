@@ -42,4 +42,12 @@ public class ResponseSteps {
         Response response=RestAssuredUtils.getResponse();
         response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("data/"+fileName));
     }
+
+    @Then("verify response body has same data as request for update")
+    public void verify_response_body_has_same_data_as_request_for_update() {
+        Response response=RestAssuredUtils.getResponse();
+        CreateBookingRequestPojo responsePojo=response.as(CreateBookingRequestPojo.class);
+        CreateBookingRequestPojo requestPojo=(CreateBookingRequestPojo) ConfigReader.getObject("updatedRequestBody");
+        Assert.assertTrue(requestPojo.equals(responsePojo));
+    }
 }

@@ -4,6 +4,9 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.io.FileInputStream;
+import java.util.Scanner;
+
 public class RestAssuredUtils {
     static RequestSpecification requestSpecification= RestAssured.given();
     static Response response;
@@ -33,16 +36,44 @@ public class RestAssuredUtils {
         response.then().log().all();
     }
 
+    public static void put(){
+        requestSpecification.when().log().all();
+        response=requestSpecification.put(endpoint);
+        response.then().log().all();
+    }
+
+    public static void delete(){
+        requestSpecification.when().log().all();
+        response=requestSpecification.delete(endpoint);
+        response.then().log().all();
+    }
+
     public static int getStatusCode(){
         return response.getStatusCode();
+    }
+
+    public static String getDataFromJson(String fileName){
+        String filePath="src/test/resources/data/";
+        String data="";
+        try{
+            Scanner sc=new Scanner(new FileInputStream(filePath+fileName));
+            data=sc.useDelimiter("\\Z").next();
+        } catch (Exception e) {
+            System.out.println("Unable to load file");
+        }
+        return data;
     }
 
     public static Response getResponse(){
         return response;
     }
 
-    public String getFieldValueFromResponse(){
-       return  response.jsonPath().toString();
+    public static String getFieldValueFromResponse(String jsonPath){
+       return  response.jsonPath().getString(jsonPath);
+    }
+
+    public static void clear(){
+        requestSpecification=RestAssured.given();
     }
 
 }
