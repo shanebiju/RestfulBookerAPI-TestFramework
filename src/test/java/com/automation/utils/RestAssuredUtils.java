@@ -40,4 +40,9 @@ public class RestAssuredUtils {
     public static Response getResponse(){
         return response;
     }
+
+    public String getFieldValueFromResponse(){
+       return  response.jsonPath().toString();
+    }
+
 }

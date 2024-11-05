@@ -45,4 +45,9 @@ public class RequestSteps {
     public void user_sends_a_get_request() {
         RestAssuredUtils.get();
     }
+    @Given("user wants to call {string} endpoint with id {string}")
+    public void user_wants_to_call_endpoint_with_id(String url, String key) {
+        String id=ConfigReader.getProperty(key);
+        RestAssuredUtils.setEndPoint(url+"/"+id);
+    }
 }
